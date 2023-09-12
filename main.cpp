@@ -11,7 +11,7 @@ public:
 		}
 		return ptr;
 	}
-	~Singleton() {
+	static void destructorCaller() {
 		if (ptr != nullptr && flag) {
 			std::cout << "Destructor" << std::endl;
 			flag = false;
@@ -29,6 +29,7 @@ private:
 	Singleton() {
 		std::cout << "Constructor" << std::endl;
 	}
+	~Singleton() {};
 	std::string data;
 };
 
@@ -42,6 +43,7 @@ int main() {
 	Singleton* s3 = Singleton::constructorCaller();
 	s1->set_data("Singleton data");
 	std::cout << s1->get_data() << std::endl;
-	delete s1, s2, s3;
+	Singleton::destructorCaller();
+
 	return 0;
 }
